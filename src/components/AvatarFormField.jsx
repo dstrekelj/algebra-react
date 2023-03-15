@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { FormField } from "./FormField";
-
-const avatarImages = [
-    '/avatars/bulbasaur.png',
-    '/avatars/ditto.png',
-    '/avatars/psyduck.png',
-    "/avatars/farfetch'd.png"
-];
+import { avatarImages } from "../library/avatar";
 
 export function AvatarFormField(props) {
     const [index, setIndex] = useState(0);

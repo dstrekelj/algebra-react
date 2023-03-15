@@ -1,30 +1,13 @@
 import { useState } from "react";
-import { InputFormField } from "../components/InputFormField";
 import { Message } from "../components/Message";
-import { SubmitFormField } from "../components/SubmitFormField";
+import { MessageForm } from "../components/MessageForm";
 
 export function ChatPage(props) {
-    const [ formState, setFormState ] = useState('');
     const [ messages, setMessages] = useState([]);
 
-    function handleChange(message) {
-        setFormState(message);
+    function handleSubmit(message) {
+        setMessages([ ...messages, message]);
     }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        setFormState('');
-        setMessages([ ...messages, {
-            id: Date.now(),
-            author: {
-                username: props.username,
-                avatarIndex: props.avatarIndex,
-            },
-            text: formState,
-        }]);
-    }
-
-    console.log(formState);
 
     const messageComponents = messages.map((message) => {
         return <Message
@@ -41,14 +24,10 @@ export function ChatPage(props) {
             <div className="message-list">
                 {messageComponents}
             </div>
-            <form onSubmit={handleSubmit}>
-                <InputFormField label="Message"
-                    type="text"
-                    value={formState}
-                    onChange={handleChange}
-                />
-                <SubmitFormField label="Send" />
-            </form>
+            <MessageForm onSubmit={handleSubmit}
+                username={props.username}
+                avatarIndex={props.avatarIndex}
+            />
         </div>
     );
 };

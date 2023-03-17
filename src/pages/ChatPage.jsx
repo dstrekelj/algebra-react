@@ -1,9 +1,12 @@
+import { useContext } from "react";
 import { useState } from "react";
 import { Message } from "../components/Message";
 import { MessageForm } from "../components/MessageForm";
+import { AppContext } from "../contexts/AppContext";
 
 export function ChatPage(props) {
     const [ messages, setMessages] = useState([]);
+    const context = useContext(AppContext);
 
     function handleSubmit(message) {
         setMessages([ ...messages, message]);
@@ -25,8 +28,8 @@ export function ChatPage(props) {
                 {messageComponents}
             </div>
             <MessageForm onSubmit={handleSubmit}
-                username={props.username}
-                avatarIndex={props.avatarIndex}
+                username={context.username}
+                avatarIndex={context.avatarIndex}
             />
         </div>
     );

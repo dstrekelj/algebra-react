@@ -3,8 +3,9 @@ import { useState } from "react";
 import { Message } from "../components/Message";
 import { MessageForm } from "../components/MessageForm";
 import { AppContext } from "../contexts/AppContext";
+import { Navigate } from "react-router-dom";
 
-export function ChatPage(props) {
+export function ChatPage() {
     const [ messages, setMessages] = useState([]);
     const context = useContext(AppContext);
 
@@ -20,6 +21,10 @@ export function ChatPage(props) {
             text={message.text}
         />;
     });
+
+    if (!context.isSignedIn) {
+        return <Navigate to="/" replace />;
+    }
 
     return (
         <div>
